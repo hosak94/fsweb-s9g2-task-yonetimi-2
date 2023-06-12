@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { nanoid } from "nanoid";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 export default function TaskHookForm({ kisiler, submitFn }) {
   const {
@@ -21,19 +21,18 @@ export default function TaskHookForm({ kisiler, submitFn }) {
     reset({
       title: "",
       description: "",
-      deadline: ""
+      deadline: "",
     });
   }
 
-
   return (
     <form className="taskForm" onSubmit={handleSubmit(mySubmit)}>
-      <div className="form-line">
-        <label className="input-label" htmlFor="title">
+      <div className="pt-4">
+        <label className="text-sm block pb-1.5" htmlFor="title">
           Başlık
         </label>
         <input
-          className="input-text"
+          className="block w-full border border-gray-300 px-1.5 tect-sm leading-6 rounded "
           {...register("title", { required: "Task başlığı yazmalısınız" })}
           id="title"
           name="title"
@@ -42,12 +41,12 @@ export default function TaskHookForm({ kisiler, submitFn }) {
         {errors.title && <p className="input-error">{errors.title.message}</p>}
       </div>
 
-      <div className="form-line">
-        <label className="input-label" htmlFor="description">
+      <div className="py-4">
+        <label className="text-sm block pb-1.5" htmlFor="description">
           Açıklama
         </label>
         <textarea
-          className="input-textarea"
+          className="input-block w-full border border-gray-300 px-1.5 tect-sm leading-6 rounded"
           {...register("description", {
             required: "Task açıklaması yazmalısınız",
             minLength: {
@@ -64,11 +63,14 @@ export default function TaskHookForm({ kisiler, submitFn }) {
         )}
       </div>
 
-      <div className="form-line">
-        <label className="input-label">İnsanlar</label>
+      <div className="py-4">
+        <label className="text-sm block pb-1.5">İnsanlar</label>
         <div>
           {kisiler.map((p) => (
-            <label className="input-checkbox" key={p}>
+            <label
+              className="text-sm px-1.5 py-2 rounded border border-solid border-gray-300 mr-2 mb-2 inline-flex items-center cursor-pointer"
+              key={p}
+            >
               <input
                 {...register("people", {
                   required: "Lütfen en az 1 kişi seçin",
@@ -95,17 +97,21 @@ export default function TaskHookForm({ kisiler, submitFn }) {
           Son teslim
         </label>
         <input
-          className="input-text"
-          {...register("deadline", { required: "Son teslim tarihi seçmelisiniz" })}
+          className="block w-full border border-gray-300 px-1.5 tect-sm leading-6 rounded"
+          {...register("deadline", {
+            required: "Son teslim tarihi seçmelisiniz",
+          })}
           id="deadline"
           name="deadline"
           type="date"
           min="2023-01-25"
         />
-        {errors.deadline && <p className="input-error">{errors.deadline.message}</p>}
+        {errors.deadline && (
+          <p className="input-error">{errors.deadline.message}</p>
+        )}
       </div>
 
-      <div className="form-line">
+      <div className="py-4">
         <button className="submit-button" type="submit" disabled={!isValid}>
           Kaydet
         </button>
